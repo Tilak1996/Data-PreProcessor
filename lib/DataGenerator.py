@@ -120,12 +120,14 @@ class FFT3DStat:
             # fun.entropy(self.windowX),
             # fun.entropy(self.windowY),
             # fun.entropy(self.windowZ),
-            fun.maxInds(self.windowX),
-            fun.maxInds(self.windowY),
-            fun.maxInds(self.windowZ),
-            np.average(range(1,len(self.windowX)+1),weights=self.windowX),
-            np.average(range(1,len(self.windowY)+1),weights=self.windowY),
-            np.average(range(1,len(self.windowZ)+1),weights=self.windowZ),
+
+            # fun.maxInds(self.windowX),
+            # fun.maxInds(self.windowY),
+            # fun.maxInds(self.windowZ),
+            # np.average(range(1,len(self.windowX)+1),weights=self.windowX),
+            # np.average(range(1,len(self.windowY)+1),weights=self.windowY),
+            # np.average(range(1,len(self.windowZ)+1),weights=self.windowZ),
+
             stats.skew(self.windowX),
             stats.kurtosis(self.windowX),
             stats.skew(self.windowY),
@@ -197,8 +199,10 @@ class FFT3DMag:
             fun.energy(self.window),
             stats.iqr(self.window),
             # fun.entropy(self.window),
-            fun.maxInds(self.window),
-            np.average(range(1,len(self.window)+1),weights=self.window),
+
+            # fun.maxInds(self.window),
+            # np.average(range(1,len(self.window)+1),weights=self.window),
+
             stats.skew(self.window),
             stats.kurtosis(self.window)
         ]

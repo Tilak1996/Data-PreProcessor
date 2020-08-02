@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from columns import columns
+from columns import col
 from lib.DataGenerator import *
 from lib.StatFunc import StatFunc
 import scipy.stats as stat
@@ -20,26 +20,26 @@ import scipy.stats as stat
 # f1 = pd.DataFrame(data=[[1, 2], [3, 4]])
 # f2 = pd.DataFrame(data=[[10, 11], [12, 13]])
 # print(f1*f2)
-bodyAccX = pd.read_csv("sets2/body_acc_x_train.txt",delim_whitespace=True,names=range(0,128))
-bodyAccY = pd.read_csv("sets2/body_acc_y_train.txt",delim_whitespace=True,names=range(0,128))
-bodyAccZ = pd.read_csv("sets2/body_acc_z_train.txt",delim_whitespace=True,names=range(0,128))
+bodyAccX = pd.read_csv("sets2/body_acc_x_test.txt",delim_whitespace=True,names=range(0,128))
+bodyAccY = pd.read_csv("sets2/body_acc_y_test.txt",delim_whitespace=True,names=range(0,128))
+bodyAccZ = pd.read_csv("sets2/body_acc_z_test.txt",delim_whitespace=True,names=range(0,128))
 
-totalAccX = pd.read_csv("sets2/total_acc_x_train.txt",delim_whitespace=True,names=range(0,128))
-totalAccY = pd.read_csv("sets2/total_acc_y_train.txt",delim_whitespace=True,names=range(0,128))
-totalAccZ = pd.read_csv("sets2/total_acc_z_train.txt",delim_whitespace=True,names=range(0,128))
+totalAccX = pd.read_csv("sets2/total_acc_x_test.txt",delim_whitespace=True,names=range(0,128))
+totalAccY = pd.read_csv("sets2/total_acc_y_test.txt",delim_whitespace=True,names=range(0,128))
+totalAccZ = pd.read_csv("sets2/total_acc_z_test.txt",delim_whitespace=True,names=range(0,128))
 
 gravityX = totalAccX - bodyAccX
 gravityY = totalAccY - bodyAccY
 gravityZ = totalAccZ - bodyAccZ
 
-gyroX = pd.read_csv("sets2/body_gyro_x_train.txt",delim_whitespace=True,names=range(0,128))
-gyroY = pd.read_csv("sets2/body_gyro_y_train.txt",delim_whitespace=True,names=range(0,128))
-gyroZ = pd.read_csv("sets2/body_gyro_z_train.txt",delim_whitespace=True,names=range(0,128))
+gyroX = pd.read_csv("sets2/body_gyro_x_test.txt",delim_whitespace=True,names=range(0,128))
+gyroY = pd.read_csv("sets2/body_gyro_y_test.txt",delim_whitespace=True,names=range(0,128))
+gyroZ = pd.read_csv("sets2/body_gyro_z_test.txt",delim_whitespace=True,names=range(0,128))
 
-subject = pd.read_csv("sets2/subject_train.txt",delim_whitespace=True,names=[0])
-YLabels = pd.read_csv("sets2/y_train.txt",delim_whitespace=True,names=[0])
+subject = pd.read_csv("sets2/subject_test.txt",delim_whitespace=True,names=[0])
+YLabels = pd.read_csv("sets2/y_test.txt",delim_whitespace=True,names=[0])
 
-myDataset = pd.DataFrame(columns=columns)
+myDataset = pd.DataFrame(columns=col)
 
 Activity = {
     1: "WALKING",
@@ -196,7 +196,8 @@ for i in range(0,len(bodyAccX.columns.values)):
     # Concatenating all the data segments
     dataPoint = tBodyAcc + tGravityAcc + tBodyAccJerk + tBodyGyro + tBodyGyroJerk
     # dataPoint.append(tBodyAccJerk).append(tBodyGyro).append(tBodyGyroJerk)
-    dataPoint = dataPoint + tBodyAccMag + tGravityAccMag + tBodyAccJerkMag + tBodyGyroMag
+    dataPoint = dataPoint + tBodyAccMag + tBodyAccJerkMag + tBodyGyroMag
+    # + tGravityAccMag
     # dataPoint.append(tBodyAccMag).append(tGravityAccMag).append(tBodyAccJerkMag)
     # dataPoint.append(tBodyGyroMag).append(tBodyGyroJerkMag)
     dataPoint = dataPoint + tBodyGyroJerkMag + fBodyAcc + fBodyAccJerk + fBodyGyro
@@ -211,12 +212,13 @@ for i in range(0,len(bodyAccX.columns.values)):
     # dataPoint.append(AngleGravX).append(AngleGravY).append(AngleGravZ)
     # dataPoint.append(subject[0][i]).append(Activity[YLabels[0][i]])
     # print(type(dataPoint))
-
+    print(len(dataPoint))
     # Inserting into the dataframe
     # print(dataPoint)
     # myDataset = myDataset.append(dataPoint)
     myDataset.loc[i] = dataPoint
+    print("point")
 
 # print(myDataset)
-myDataset.to_csv("sets2/myTrain2.csv",sep=",")
+myDataset.to_csv("sets2/myTest.csv",sep=",")
 # correlation.to_csv("datasets/correlation.csv",sep=",")
